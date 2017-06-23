@@ -7,9 +7,9 @@ import cv2
 #initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
 camera.resolution = (320, 240)
-camera.framerate = 60
+camera.framerate = 30
 rawCapture = PiRGBArray(camera, size=(320, 240))
-
+camera.vflip = True
 # allow the camera to warmup
 time.sleep(0.1)
 
