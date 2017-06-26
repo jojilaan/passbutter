@@ -17,53 +17,51 @@ class Rover(object):
 				self.pwm_L.start(0)
 				self.pwm_R.start(0)
 
-		def goForward(self, speed):
+		def goForward(self, speed, t):
 				self.speed = speed
 				GPIO.output(9, GPIO.HIGH)
 				GPIO.output(25, GPIO.LOW)
 				self.pwm_L.ChangeDutyCycle(self.speed)
 				self.pwm_R.ChangeDutyCycle(self.speed)
+				time.sleep(t)
 
-		def goBackward(self, speed):
+		def goBackward(self, speed, t):
 				self.speed = speed
 				GPIO.output(9, GPIO.LOW)
 				GPIO.output(25, GPIO.HIGH)
 				self.pwm_L.ChangeDutyCycle(self.speed)
 				self.pwm_R.ChangeDutyCycle(self.speed)
+				time.sleep(t)
 
 		def stopRover(self):
 				self.speed = 0
 				self.pwm_L.ChangeDutyCycle(0)
 				self.pwm_R.ChangeDutyCycle(0)
 		
-		def goRight(self, speed):
+		def turnRover(self, direction, speed, t):
 				self.speed = speed
-				GPIO.output(9, GPIO.HIGH)
-				GPIO.output(25, GPIO.HIGH)
+				if(direction == "right"):
+						GPIO.output(9, GPIO.LOW)
+						GPIO.output(25, GPIO.LOW)
+				else:
+						GPIO.output(9, GPIO.HIGH)
+						GPIO.output(25, GPIO.HIGH)
 				self.pwm_L.ChangeDutyCycle(self.speed)
 				self.pwm_R.ChangeDutyCycle(self.speed)
-
-		def goLeft(self, speed):
-				self.speed = speed
-				GPIO.output(9, GPIO.LOW)
-				GPIO.output(25, GPIO.LOW)
-				self.pwm_L.ChangeDutyCycle(self.speed)
-				self.pwm_R.ChangeDutyCycle(self.speed)
+				time.sleep(t)
 
 		def cleanUp(self):
 				GPIO.cleanup(9)
 				GPIO.cleanup(11)
 				GPIO.cleanup(25)
 				GPIO.cleanup(8)
+		
+		def getSpeed(self):
+				return self.speed
+		
+
 if __name__ == '__main__':
 		rover = Rover()
-		rover.goForward(100)
-		time.sleep(10)
-		rover.goBackward(100)
-		time.sleep(5)
-		rover.goRight(100)
-		time.sleep(5)
-		rover.goLeft(100)
-		time.sleep(5)
+		rover.turnRover("left",28, 2.2)
 		rover.stopRover()
 		rover.cleanUp()
