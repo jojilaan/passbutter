@@ -6,7 +6,7 @@ class KleurenSensor(object):
         def __init__(self):
                 self.bus = smbus.SMBus(1)
                 self.bus.write_byte(0x29, 0x80|0x12)
-                self.ver = bus.read_byte(0x29)
+                self.ver = self.bus.read_byte(0x29)
                 if (self.ver == 68):
                         print("Device found\n")
                         self.bus.write_byte(0x29, 0x80|0x00)
@@ -20,8 +20,14 @@ class KleurenSensor(object):
                 self.red = self.red / 256 
                 self.green = self.green / 256 
                 self.blue = self.blue / 256
-                print('R: {0}   G: {1}    B: {2}'.format(self.red, self.green, self.blue))
                 if (self.red < 30 and self.green < 30 and self.blue < 30):
                         return True
                 else:
                         return False
+
+if __name__ == "__main__":
+		ks = KleurenSensor()
+		
+		while True:
+				print ks.isBlack()
+				time.sleep(0.1)

@@ -8,8 +8,8 @@ class Ultrasone_sensor(object):
 				self.TRIG_voor = 23                                  #Associate pin 23 to TRIG
 				self.ECHO_voor = 24                                  #Associate pin 24 to ECHO
 
-				self.TRIG_achter = 06                                  #Associate pin 05 to TRIG
-				self.ECHO_achter = 05                                  #Associate pin 06 to ECHO
+				self.TRIG_achter = 14									#Associate pin 05 to TRIG
+				self.ECHO_achter = 15                                  #Associate pin 06 to ECHO
 		
 				GPIO.setmode(GPIO.BCM)
 				
@@ -75,8 +75,9 @@ class Ultrasone_sensor(object):
 				
 if __name__ == '__main__':
 		USS = Ultrasone_sensor()
-		while true:#while variable is true als als er een object binnen de afstand wordt gezien variable op false
+		while True:#while variable is true als als er een object binnen de afstand wordt gezien variable op false
 				test = USS.MeetAfstandVoor()
 				print test
 				test1 = USS.MeetAfstandAchter()
 				print test1
+				time.sleep(1)
