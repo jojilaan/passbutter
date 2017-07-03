@@ -40,19 +40,6 @@ class Camera(object):
                             res = cv2.bitwise_and(image, image, mask= mask)
 
                             aantal_kleur = cv2.countNonZero(mask)
-                
-                        #print aantal_geel
-
-
-                        #cv2.imshow("geel", res)
-                        #cv2.imshow("crop", crop_cap)
-
-                        #cv2.imshow("Frame", image)
 
                         self.rawCapture.truncate(0)
                         return aantal_kleur
-
-#if __name__ == "__main__":
-#    camera = Camera()
-#    test = camera.herkenBoter()
-#    print test

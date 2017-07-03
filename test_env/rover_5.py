@@ -57,9 +57,3 @@ class Rover(object):
 		
 		def getSpeed(self):
 				return self.speed
-		
-'''if __name__ == "__main__":
-		r = Rover()
-		r.turnRover("right",100 , 5)
-		r.stopRover()
-		r.cleanUp()'''
