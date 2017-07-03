@@ -1,29 +1,36 @@
-from Tkinter import *
 import RPi.GPIO as GPIO
 import time
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.OUT)
-pwm = GPIO.PWM(18, 100)
-pwm.start(5)
+class Arm:
 
-class App:
-
-    def __init__(self, master):
-        frame = Frame(master)
-        frame.pack()
-        scale = Scale(frame, from_=0, to=180,
-              orient=HORIZONTAL, command=self.update)
-        scale.grid(row=0)
+		def __init__(self):
+			GPIO.setmode(GPIO.BCM)
+			GPIO.setup(19, GPIO.OUT)
+			GPIO.setup(26, GPIO.OUT)
+			self.pwm_l = GPIO.PWM(19,50)
+			self.pwm_r = GPIO.PWM(26,50)
+			self.pwm_l.start(0)
+			self.pwm_r.start(0)
 
 
-    def update(self, angle):
-        print(angle)
-        duty = float(angle) / 10.0 + 2.5
-        pwm.ChangeDutyCycle(duty)
+		def updateAngle(self):
+			#duty = (angle / 8.05)  +  2.5
+			#GPIO.output(19, GPIO.HIGH)	
+			self.pwm_l.ChangeDutyCycle(10.0)
+			time.sleep(1)
+			self.pwm_r.ChangeDutyCycle(4.0)
+			time.sleep(1)
+			#self.pwm_r.ChangeDutyCycle(10.0)
+			#time.sleep(1)
+			#self.pwm_l.ChangeDutyCycle(4.0)
+			#time.sleep(1)
+		
+		def cleanUp(self):
+			GPIO.cleanup(19)
+			GPIO.cleanup(26)
 
-root = Tk()
-root.wm_title('Servo Control')
-app = App(root)
-root.geometry("200x50+0+0")
-root.mainloop()
+if __name__ == "__main__":
+		arm = Arm()
+		arm.updateAngle()
+		time.sleep(2)
+		arm.cleanUp()

@@ -17,21 +17,20 @@ class Rover(object):
 				self.pwm_L.start(0)
 				self.pwm_R.start(0)
 
-		def goForward(self, speed, t):
+		def goBackward(self, speed):
 				self.speed = speed
 				GPIO.output(9, GPIO.HIGH)
 				GPIO.output(25, GPIO.LOW)
 				self.pwm_L.ChangeDutyCycle(self.speed)
 				self.pwm_R.ChangeDutyCycle(self.speed)
-				time.sleep(t)
+				
 
-		def goBackward(self, speed, t):
+		def goForward(self, speed):
 				self.speed = speed
 				GPIO.output(9, GPIO.LOW)
 				GPIO.output(25, GPIO.HIGH)
 				self.pwm_L.ChangeDutyCycle(self.speed)
 				self.pwm_R.ChangeDutyCycle(self.speed)
-				time.sleep(t)
 
 		def stopRover(self):
 				self.speed = 0
@@ -40,7 +39,7 @@ class Rover(object):
 		
 		def turnRover(self, direction, speed, t):
 				self.speed = speed
-				if(direction == "right"):
+				if(direction == "left"):
 						GPIO.output(9, GPIO.LOW)
 						GPIO.output(25, GPIO.LOW)
 				else:
@@ -59,9 +58,8 @@ class Rover(object):
 		def getSpeed(self):
 				return self.speed
 		
-
-if __name__ == '__main__':
-		rover = Rover()
-		rover.turnRover("left",28, 2.2)
-		rover.stopRover()
-		rover.cleanUp()
+'''if __name__ == "__main__":
+		r = Rover()
+		r.turnRover("right",100 , 5)
+		r.stopRover()
+		r.cleanUp()'''

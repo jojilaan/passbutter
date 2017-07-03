@@ -4,32 +4,55 @@ import cv2
 import time
 import numpy as np
 
-cap = PiCamera()
-cap.resolution = (320, 240)
-cap.framerate = 30
-rawCapture = PiRGBArray(cap, size=(320, 240))
-cap.vflip = True
-time.sleep(0.1)
+class Camera(object):
+                def __init__(self):
+                    self.cap = PiCamera()
+                    self.cap.resolution = (320, 240)
+                    self.cap.framerate = 15
+                    self.rawCapture = PiRGBArray(self.cap, size=(320, 240))
+                    self.cap.vflip = True
+                    self.cap.hflip = True
+                    time.sleep(0.1)
 
-for frame in cap.capture_continuous(rawCapture, format="rgb", use_video_port=True):
-		image = frame.array
-		image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                def herkenBoter(self, kleur):
+                    for frame in self.cap.capture_continuous(self.rawCapture, format="rgb", use_video_port=True):
+                        image = frame.array
+                        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                        image = image[90:240,149:169]
 
-		hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+                        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-		lower_yellow = np.array([20,100,100])
-		upper_yellow = np.array([40,255,255])
+                        if kleur == "geel":
+                            lower_yellow = np.array([20,100,100])
+                            upper_yellow = np.array([40,255,255])
 
-		mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+                            mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
 
-		res = cv2.bitwise_and(image, image, mask= mask)
+                            res = cv2.bitwise_and(image, image, mask= mask)
 
-		cv2.imshow("geel", res)
+                            aantal_kleur = cv2.countNonZero(mask)
+                        else:
+                            lower_blauw = np.array([110,50,50])
+                            upper_blauw = np.array([130,255,255])
 
-		cv2.imshow("Frame", image)
-		key = cv2.waitKey(1) & 0XFF
+                            mask = cv2.inRange(hsv, lower_blauw, upper_blauw)
 
-		rawCapture.truncate(0)
+                            res = cv2.bitwise_and(image, image, mask= mask)
 
-		if key == ord("q"):
-				break
+                            aantal_kleur = cv2.countNonZero(mask)
+                
+                        #print aantal_geel
+
+
+                        #cv2.imshow("geel", res)
+                        #cv2.imshow("crop", crop_cap)
+
+                        #cv2.imshow("Frame", image)
+
+                        self.rawCapture.truncate(0)
+                        return aantal_kleur
+
+#if __name__ == "__main__":
+#    camera = Camera()
+#    test = camera.herkenBoter()
+#    print test
