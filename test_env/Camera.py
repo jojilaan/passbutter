@@ -18,7 +18,7 @@ class Camera(object):
                     self.cap.hflip = True
                     time.sleep(0.1)
 
-                def herkenBoter(self, kleur):
+                def herkenKleur(self, kleur):
                     for frame in self.cap.capture_continuous(self.rawCapture, format="rgb", use_video_port=True):
                         image = frame.array
                         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)

@@ -42,7 +42,7 @@ class Robot(object):
 
 		def ZoekBoter(self, camera):
                                 while True:
-                                    return_camera = camera.herkenBoter("geel")
+                                    return_camera = camera.herkenKleur("geel")
                                     time.sleep(1)
                                     print return_camera
                                     if return_camera > 10:
@@ -72,7 +72,7 @@ class Robot(object):
 
                 def ZoekBord(self, camera):
                                 while True:
-                                    return_camera = camera.herkenBoter("blauw")
+                                    return_camera = camera.herkenKleur("blauw")
                                     time.sleep(1)
                                     print return_camera
                                     if return_camera > 10:
