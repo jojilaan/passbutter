@@ -1,4 +1,4 @@
-import threading
+import threading                                                                                                    #import all librarisch
 from rover_5 import Rover
 from UltrasoneSensor import UltrasoneSensor
 from KleurenSensor import KleurenSensor

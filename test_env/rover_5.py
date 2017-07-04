@@ -5,30 +5,30 @@ class Rover(object):
 		
 		def __init__(self):
 				
-				GPIO.setmode(GPIO.BCM)
+				GPIO.setmode(GPIO.BCM)                                          #set pinout to BCM mode
 				GPIO.setup(11, GPIO.OUT)					#Pwm LEFT        
-				GPIO.setup(9, GPIO.OUT)				#Dir LEFT
-				self.pwm_L = GPIO.PWM(11, 100)
+				GPIO.setup(9, GPIO.OUT)				                #Dir LEFT
+				self.pwm_L = GPIO.PWM(11, 100)                                  #make pin 11 pwm pinout
 
-				GPIO.setup(8, GPIO.OUT)				#Pwm Right        
+				GPIO.setup(8, GPIO.OUT)				                #Pwm Right        
 				GPIO.setup(25, GPIO.OUT)					#Dir Right
-				self.pwm_R = GPIO.PWM(8, 100)
+				self.pwm_R = GPIO.PWM(8, 100)                                   #make pin 8 a pwm pinout
 				
-				self.pwm_L.start(0)
-				self.pwm_R.start(0)
+				self.pwm_L.start(0)                                             #start pwm
+				self.pwm_R.start(0)                                             #start pwm
 
-		def goBackward(self, speed):
-				self.speed = speed
-				GPIO.output(9, GPIO.HIGH)
-				GPIO.output(25, GPIO.LOW)
+		def goBackward(self, speed):                                                
+				self.speed = speed                                              
+				GPIO.output(9, GPIO.HIGH)                                       #set pin 9 to high
+				GPIO.output(25, GPIO.LOW)                                       #set pin 25 to Low
 				self.pwm_L.ChangeDutyCycle(self.speed)
 				self.pwm_R.ChangeDutyCycle(self.speed)
 				
 
 		def goForward(self, speed):
 				self.speed = speed
-				GPIO.output(9, GPIO.LOW)
-				GPIO.output(25, GPIO.HIGH)
+				GPIO.output(9, GPIO.LOW)                                        #set pin 9 to low
+				GPIO.output(25, GPIO.HIGH)                                      #set pin 25 to high
 				self.pwm_L.ChangeDutyCycle(self.speed)
 				self.pwm_R.ChangeDutyCycle(self.speed)
 
@@ -39,7 +39,7 @@ class Rover(object):
 		
 		def turnRover(self, direction, speed, t):
 				self.speed = speed
-				if(direction == "left"):
+				if(direction == "left"):                                        
 						GPIO.output(9, GPIO.LOW)
 						GPIO.output(25, GPIO.LOW)
 				else:

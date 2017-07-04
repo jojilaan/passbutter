@@ -1,3 +1,7 @@
+#http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_colorspaces/py_colorspaces.html
+#answers.opencv.org/question/23450/countig-blue-pixels-in-image-python/
+#stackoverflow.com/questions/15589517/how-to-crop-an-image-in-opencv-using-python
+
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import cv2

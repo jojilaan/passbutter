@@ -28,9 +28,3 @@ class Arm:
 		def cleanUp(self):
 			GPIO.cleanup(19)
 			GPIO.cleanup(26)
-
-if __name__ == "__main__":
-		arm = Arm()
-		arm.updateAngle()
-		time.sleep(2)
-		arm.cleanUp()
