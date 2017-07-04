@@ -73,12 +73,3 @@ class UltrasoneSensor(object):
 					return distance_achter - 0.5                            #Print distance with 0.5 cm calibration
 				else:
 					return 400
-				
-
-if __name__ == "__main__":
-		USS = UltrasoneSensor()
-		i = 0
-		while i < 10:
-				test=USS.MeetAfstandAchter()
-				print test
-				i = i + 1
